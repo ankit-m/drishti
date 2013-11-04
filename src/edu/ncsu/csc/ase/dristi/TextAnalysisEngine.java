@@ -3,6 +3,7 @@ package edu.ncsu.csc.ase.dristi;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.ncsu.csc.ase.dristi.datastructure.ITuple;
 import edu.ncsu.csc.ase.dristi.datastructure.Tuple;
 import edu.ncsu.csc.ase.dristi.shallowparser.ParserFactory;
 import edu.ncsu.csc.ase.dristi.util.TupleUtil;
@@ -32,7 +33,7 @@ public class TextAnalysisEngine {
 				Set<IndexedWord> visitedSet = new HashSet<IndexedWord>();
         ITuple tuple = ParserFactory.getInstance().getParser("root").parse(dependencies.getFirstRoot(), dependencies, visited);
         TupleUtil.reorder(tuple, orderedList, visitedSet);
-				return tuple;
+				return (Tuple)tuple;
       }
 		}
 		return null;
