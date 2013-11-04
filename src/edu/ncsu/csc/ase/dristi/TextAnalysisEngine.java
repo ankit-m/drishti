@@ -29,7 +29,7 @@ public class TextAnalysisEngine {
 			if (dependencies.getRoots().size() > 0)
       {
         List<IndexedWord> orderedList = dependency.vertexListSorted();
-				Set<IndexedWord> visitedSet = new HashSet<>();
+				Set<IndexedWord> visitedSet = new HashSet<IndexedWord>();
         ITuple tuple = ParserFactory.getInstance().getParser("root").parse(dependencies.getFirstRoot(), dependencies, visited);
         TupleUtil.reorder(tuple, orderedList, visitedSet);
 				return tuple;
