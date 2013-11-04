@@ -5,6 +5,7 @@ import java.util.Set;
 
 import edu.ncsu.csc.ase.dristi.datastructure.Tuple;
 import edu.ncsu.csc.ase.dristi.shallowparser.ParserFactory;
+import edu.ncsu.csc.ase.dristi.util.TupleUtil;
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.trees.semgraph.SemanticGraph;
 
@@ -26,11 +27,13 @@ public class TextAnalysisEngine {
 		Set<IndexedWord> visited = new HashSet<IndexedWord>();
 		if (dependencies.vertexSet().size() != 0) {
 			if (dependencies.getRoots().size() > 0)
-				return ParserFactory
-						.getInstance()
-						.getParser("root")
-						.parse(dependencies.getFirstRoot(), dependencies,
-								visited);
+      {
+        List<IndexedWord> orderedList = dependency.vertexListSorted();
+				Set<IndexedWord> visitedSet = new HashSet<>();
+        ITuple tuple = ParserFactory.getInstance().getParser("root").parse(dependencies.getFirstRoot(), dependencies, visited);
+        TupleUtil.reorder(tuple, orderedList, visitedSet);
+				return tuple;
+      }
 		}
 		return null;
 	}
