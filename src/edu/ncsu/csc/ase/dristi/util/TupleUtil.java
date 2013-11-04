@@ -360,4 +360,77 @@ public class TupleUtil
 		}
 		return retValue;
 	}
+   
+   public static ITuple reorder(ITuple tuple, List<IndexedWord> orderedList, Set<IndexedWord> visitedSet) {
+		if ((tuple != null) && (!tuple.isTerminal())) 
+		{
+			tuple.setRight(reorder(tuple.getRight(), orderedList, visitedSet));
+			tuple.setLeft(reorder(tuple.getLeft(), orderedList, visitedSet));
+			//Only Child should be left Child.
+			if((tuple.getLeft()==null)&&(tuple.getRight()!=null))
+			{
+				tuple.setLeft(tuple.getRight());
+				tuple.setRight(null);
+			}
+			
+			if(tuple.getRight()!=null)
+			{
+				String leftwrdList,rightwrdList;
+				if(tuple.getLeft().isTerminal())
+					leftwrdList = tuple.getLeft().getEntity().getName();
+				else
+					leftwrdList = tuple.getLeft().getRelation().getName();
+				
+				if(tuple.getRight().isTerminal())
+					rightwrdList = tuple.getRight().getEntity().getName();
+				else
+					rightwrdList = tuple.getRight().getRelation().getName();
+				
+				String[] leftWrdArray = leftwrdList.split("\\s");
+				Integer lftidx = Integer.MAX_VALUE;
+				for(String wrd:leftWrdArray)
+				{
+					if(wrd.trim()!= "")
+					for (IndexedWord word: orderedList)
+					{
+						if(!visitedSet.contains(word))
+						{
+							if(wrd.equalsIgnoreCase(word.originalText()))
+							{	
+								visitedSet.add(word);
+								if(lftidx> word.beginPosition())
+									lftidx = word.beginPosition();
+							}
+						}
+					}
+				}
+				Integer rightidx = Integer.MAX_VALUE;
+				String[] rightWrdArray = rightwrdList.split("\\s");
+				for(String wrd:rightWrdArray)
+				{
+					if(wrd.trim()!= "")
+					for (IndexedWord word: orderedList)
+					{
+						if(!visitedSet.contains(word))
+						{
+							if(wrd.equalsIgnoreCase(word.originalText()))
+							{	
+								visitedSet.add(word);
+								if(rightidx> word.beginPosition())
+									rightidx = word.beginPosition();
+							}
+						}
+					}
+				}
+				
+				if(lftidx>rightidx)
+				{
+					ITuple tupleTemp = tuple.getLeft();
+					tuple.setLeft(tuple.getRight());
+					tuple.setRight(tupleTemp);
+				}
+			}
+		}
+		return tuple;
+	}
 }
