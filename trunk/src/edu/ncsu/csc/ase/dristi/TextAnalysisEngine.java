@@ -1,6 +1,7 @@
 package edu.ncsu.csc.ase.dristi;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import edu.ncsu.csc.ase.dristi.datastructure.ITuple;
@@ -29,7 +30,7 @@ public class TextAnalysisEngine {
 		if (dependencies.vertexSet().size() != 0) {
 			if (dependencies.getRoots().size() > 0)
       {
-        List<IndexedWord> orderedList = dependency.vertexListSorted();
+        List<IndexedWord> orderedList = dependencies.vertexListSorted();
 				Set<IndexedWord> visitedSet = new HashSet<IndexedWord>();
         ITuple tuple = ParserFactory.getInstance().getParser("root").parse(dependencies.getFirstRoot(), dependencies, visited);
         TupleUtil.reorder(tuple, orderedList, visitedSet);
