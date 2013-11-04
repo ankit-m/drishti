@@ -1,5 +1,8 @@
 package edu.ncsu.csc.ase.dristi.util;
 
+import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 
 import edu.ncsu.csc.ase.dristi.datastructure.Entity;
@@ -8,6 +11,7 @@ import edu.ncsu.csc.ase.dristi.datastructure.Relation;
 import edu.ncsu.csc.ase.dristi.datastructure.Tuple;
 import edu.ncsu.csc.ase.dristi.datastructure.type.RelationType;
 import edu.ncsu.csc.ase.dristi.logging.MyLoggerFactory;
+import edu.stanford.nlp.ling.IndexedWord;
 
 /**
  * Class responsible for providing utilities such as merge for TUPLE
