@@ -13,6 +13,9 @@ List of Required JAR Files and where they Can be found
 # Apache Commons Logging <a href="http://commons.apache.org/proper/commons-logging/download_logging.cgi">link</a>
   * commons-logging.jar
 
+# Apache POI - the Java API for Microsoft Documents <a href="http://poi.apache.org/download.html">link</a>
+  * poi-3.10.jar
+
 # FREE TTS <a href="http://sourceforge.net/projects/freetts/files/">link</a>
   * Get all Files 
 
